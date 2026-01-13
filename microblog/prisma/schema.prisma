@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  displayName String?
+  bio       String?  @db.Text
+  createdAt DateTime @default(now())
+
+  posts     Post[]
+  likes     Like[]
+  replies   Reply[]
+  sessions  Session[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.VarChar(280)
+  createdAt DateTime @default(now())
+
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id])
+
+  likes     Like[]
+  replies   Reply[]
+
+  @@index([createdAt, id], map: "idx_post_created_at_id")
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  userId    Int
+  postId    Int
+
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId], map: "uniq_like_user_post")
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.VarChar(280)
+  createdAt DateTime @default(now())
+
+  authorId  Int
+  postId    Int
+
+  author    User     @relation(fields: [authorId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+
+  @@index([postId, createdAt, id], map: "idx_reply_post_created_at_id")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "idx_session_user_id")
+}
