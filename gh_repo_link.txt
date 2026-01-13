@@ -1,0 +1,2 @@
+clone using: https://github.com/tahachm/CS846-Week2.git
+repo link: https://github.com/tahachm/CS846-Week2
