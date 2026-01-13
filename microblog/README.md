@@ -6,14 +6,20 @@ This is a simple Twitter-style microblog built with Next.js 16 (App Router), Pri
 
 For full environment and database setup instructions, see [GET_STARTED.md](GET_STARTED.md). In short:
 
-1. Configure `DATABASE_URL` in `.env` (Supabase or local Postgres).
+1. Configure `DATABASE_URL` in `.env` (Supabase connection or local Postgres).
 2. Run Prisma migrations:
 
    ```bash
    npx prisma migrate dev --name init
    ```
 
-3. Start the dev server:
+3. Generate the Prisma client (needed after cloning or pulling the repo):
+
+  ```bash
+  npx prisma generate
+  ```
+
+4. Start the dev server:
 
    ```bash
    npm run dev

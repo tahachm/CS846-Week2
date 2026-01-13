@@ -1,0 +1,127 @@
+
+> microblog@0.1.0 test
+> vitest --run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 /Users/tahacheema/Documents/Waterloo/CS846-LLMs/microblog
+
+stdout | tests/api/likes.test.ts > likes API > parses post id from URL for POST when params.id is missing
+[likes.test] POST like flow starting
+
+stdout | tests/api/likes.test.ts > likes API > parses post id from URL for DELETE when params.id is missing
+[likes.test] DELETE unlike flow starting
+
+stdout | tests/api/user-profile.test.ts > user profile posts API > returns 400 when username is missing
+[user-profile.test] missing username flow starting
+
+stdout | tests/api/user-profile.test.ts > user profile posts API > returns 404 when user does not exist
+[user-profile.test] user not found flow starting
+
+stdout | tests/api/replies.test.ts > replies API > parses post id from URL when params.id is missing
+[replies.test] GET list flow starting
+
+stdout | tests/api/replies.test.ts > replies API > returns 400 when post id cannot be determined
+[replies.test] invalid id flow starting
+
+stdout | tests/api/replies.test.ts > replies API > creates reply including author relation and returns JSON
+[replies.test] POST create flow starting
+[replies.test] POST create response {
+  id: 1,
+  content: 'hello',
+  createdAt: '2026-01-13T20:51:12.456Z',
+  author: { id: 1, username: 'alice', displayName: 'Alice' },
+  postId: 123,
+  authorId: 1
+}
+
+ ✓ tests/api/user-profile.test.ts (3 tests) 12ms 14 MB heap used
+stdout | tests/api/user-profile.test.ts > user profile posts API > returns user summary and their posts
+[user-profile.test] happy-path profile + posts flow starting
+[user-profile.test] happy-path response {
+  user: {
+    id: 1,
+    username: 'alice',
+    displayName: 'Alice',
+    bio: 'Hello',
+    createdAt: '2026-01-13T20:51:12.454Z'
+  },
+  posts: [
+    {
+      id: 10,
+      content: 'First post',
+      createdAt: '2026-01-13T20:51:12.454Z',
+      authorId: 1,
+      _count: [Object]
+    }
+  ]
+}
+
+stdout | tests/api/posts.test.ts > posts API > creates a new post with valid content
+[posts.test] create post flow starting
+[posts.test] create post response {
+  id: 1,
+  content: 'Hello world',
+  authorId: 1,
+  createdAt: '2026-01-13T20:51:12.448Z'
+}
+
+stdout | tests/api/posts.test.ts > posts API > fetches the feed for an authenticated user
+[posts.test] feed fetch flow starting
+[posts.test] feed fetch response {
+  posts: [
+    {
+      id: 1,
+      content: 'First',
+      createdAt: '2026-01-13T20:51:12.455Z',
+      author: [Object],
+      _count: [Object]
+    }
+  ],
+  nextCursor: null
+}
+
+ ✓ tests/api/posts.test.ts (3 tests) 9ms 13 MB heap used
+stdout | tests/api/likes.test.ts > likes API > returns 400 when post id cannot be determined
+[likes.test] invalid id flow starting
+
+ ✓ tests/api/likes.test.ts (3 tests) 10ms 13 MB heap used
+ ✓ tests/api/replies.test.ts (3 tests) 12ms 13 MB heap used
+ ✓ tests/app/user-profile-page.test.tsx (2 tests) 4ms 11 MB heap used
+stdout | tests/api/auth.test.ts > auth API > registers a new user and returns safe fields
+[auth.test] register flow starting
+
+stdout | tests/api/auth.test.ts > auth API > registers a new user and returns safe fields
+[auth.test] register response {
+  id: 1,
+  email: 'alice@example.com',
+  username: 'alice',
+  displayName: 'Alice'
+}
+
+stdout | tests/api/auth.test.ts > auth API > returns 401 for invalid login credentials
+[auth.test] login invalid credentials flow starting
+
+ ✓ tests/api/auth.test.ts (2 tests) 129ms 13 MB heap used
+stdout | tests/components/post-actions.test.tsx > PostActions component > allows liking and unliking a post
+[post-actions.test] like/unlike flow starting
+
+stdout | tests/components/post-actions.test.tsx > PostActions component > allows liking and unliking a post
+[post-actions.test] clicked like
+
+stdout | tests/components/post-actions.test.tsx > PostActions component > allows liking and unliking a post
+[post-actions.test] clicked unlike
+
+stdout | tests/components/post-actions.test.tsx > PostActions component > submits a reply and appends it to the list
+[post-actions.test] reply flow starting
+
+stdout | tests/components/post-actions.test.tsx > PostActions component > submits a reply and appends it to the list
+[post-actions.test] reply payload { content: 'Nice post!' }
+
+ ✓ tests/components/post-actions.test.tsx (2 tests) 147ms 51 MB heap used
+
+ Test Files  7 passed (7)
+      Tests  18 passed (18)
+   Start at  15:51:12
+   Duration  1.11s (transform 382ms, setup 0ms, collect 903ms, tests 323ms, environment 514ms, prepare 541ms)
+

@@ -8,7 +8,7 @@ From the repo root:
         - Create a free Supabase project.
         - Go to Database → Connection string → copy the `postgres://…` string.
         - In .env, set:  
-          `DATABASE_URL="postgres://USER:PASSWORD@HOST:PORT/DATABASE?sslmode=require"`
+          `DATABASE_URL=[connection-string]`
     - If using local Postgres instead:
         - Start Postgres (e.g., database microblog).
         - Set `DATABASE_URL` in .env, for example:  
@@ -23,7 +23,15 @@ From the repo root:
 
     This creates tables for users, posts, likes, replies, and sessions.
 
-3. **Start the dev server**
+3. **Generate the Prisma client**
+
+    After cloning or pulling the repo you should (re)generate the Prisma client so imports from `@/generated/prisma/client` work:
+
+    ```bash
+    npx prisma generate
+    ```
+
+4. **Start the dev server**
 
     ```bash
     npm run dev
